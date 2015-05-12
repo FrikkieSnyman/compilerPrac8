@@ -5,7 +5,7 @@ import java.nio.charset.Charset;
 import java.io.*;
 
 public class Graph{
-	Integer[][] adjacencyMatrix;
+	Boolean[][] adjacencyMatrix;
 	HashMap<String, Integer> vertexList;
 	HashMap<Integer, LinkedList<String>> kill;
 	HashMap<Integer, LinkedList<String>> out;
@@ -35,11 +35,38 @@ public class Graph{
 				}
 			}
 		}
-
-
-
-		adjacencyMatrix = new Integer[vertices][vertices];
+		vertices = vertex.size();
 		vertexList = new HashMap<>();
+		
+		for (int i = 0; i < vertices; ++i){
+			vertexList.put(vertex.get(i),i);
+		}
+		
+		adjacencyMatrix = new Boolean[vertices][vertices];
+
+		for (int instruction = 0; instruction < lines.size(); ++instruction){
+			LinkedList<String> killList = kill.get(instruction);
+			LinkedList<String> outList = out.get(instruction);
+			if (killList != null){
+				for (int k = 0; k < killList.size(); ++k){
+					String x = killList.get(k);
+					if (outList != null){
+						for (int l = 0; l < outList.size(); ++l){
+							String y = outList.get(l);
+							if (!x.equals(y)){
+								adjacencyMatrix[vertexList.get(x)][vertexList.get(y)] = true;
+							}
+						}
+					}
+				}
+			}
+		}
+
+
+		for (int i = 0; i < vertices; ++i){
+			System.out.println(Arrays.toString(adjacencyMatrix[i]));
+		}
+
 	}
 
 }
