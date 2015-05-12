@@ -1,0 +1,11 @@
+01 A = 0
+02 B = 1
+03 Z = 0
+04 IF N = Z THEN 11 ELSE 05
+05 T = A + B
+06 A = B
+07 B = T
+08 N = N - 1
+09 Z = 0
+10 GOTO 04
+11 RETURN A
